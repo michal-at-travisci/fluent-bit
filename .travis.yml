@@ -79,7 +79,7 @@ matrix:
         apt:
           sources: {}
           packages: {}
-          - os: linux
+    - os: linux
       services:
         - docker
       dist: xenial
