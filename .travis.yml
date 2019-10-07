@@ -43,6 +43,7 @@ matrix:
     #    brew install bison flex || true
     #    ci/do-ut || true
     - os: linux
+      arch: arm64
       env: FLB_OPT="-DFLB_COVERAGE=On"
       sudo: true
       language: c
