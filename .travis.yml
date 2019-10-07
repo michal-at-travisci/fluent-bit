@@ -54,6 +54,7 @@ matrix:
         sudo usermod -a -G systemd-journal $(id -un)
         sudo -E su -p travis -c "PATH=$PATH ci/do-ut"
     - os: linux
+      arch: arm64
       services:
         - docker
       dist: xenial
@@ -63,7 +64,7 @@ matrix:
       env: DOCKER_BUILD=1
       script: |
         echo "===== BUILD DOCKER IMAGE ======="
-        docker build -t test-image -f Dockerfile.arm64 .
+         sudo docker build -t test-image -f Dockerfile.arm64 .
       addons:
         apt:
           sources: {}
