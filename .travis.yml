@@ -56,7 +56,7 @@ matrix:
     - os: linux
       services:
         - docker
-      arch: arm64
+      dist: xenial
       sudo: true
       language: c
       compiler: gcc
