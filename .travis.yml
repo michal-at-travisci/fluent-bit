@@ -82,7 +82,6 @@ matrix:
     - os: linux
       services:
         - docker
-      dist: xenial
       sudo: true
       language: c
       compiler: gcc
