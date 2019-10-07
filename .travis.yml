@@ -44,17 +44,6 @@ matrix:
     #    ci/do-ut || true
     - os: linux
       env: FLB_OPT="-DFLB_COVERAGE=On"
-      dist: xenial
-      sudo: true
-      language: c
-      compiler: gcc
-      script: |
-        sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 90
-        sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-7 90
-        sudo usermod -a -G systemd-journal $(id -un)
-        sudo -E su -p travis -c "PATH=$PATH ci/do-ut"
-    - os: linux
-      env: FLB_OPT="-DFLB_COVERAGE=On"
       arch: arm64
       sudo: true
       language: c
@@ -74,25 +63,25 @@ matrix:
       env: DOCKER_BUILD=1
       script: |
         echo "===== BUILD DOCKER IMAGE ======="
-        docker build -t test-image -f Dockerfile .
+        docker build -t test-image -f Dockerfile.arm64 .
       addons:
         apt:
           sources: {}
           packages: {}
-    - os: linux
-      services:
-        - docker
-      sudo: true
-      language: c
-      compiler: gcc
-      env: DOCKER_BUILD=1
-      script: |
-        echo "===== BUILD DOCKER IMAGE ======="
-        docker build -t test-image -f Dockerfile .
-      addons:
-        apt:
-          sources: {}
-          packages: {}
+    #- os: linux
+    #  services:
+    #    - docker
+    #  sudo: true
+    #  language: c
+    #  compiler: gcc
+    #  env: DOCKER_BUILD=1
+    #  script: |
+    #    echo "===== BUILD DOCKER IMAGE ======="
+    #    docker build -t test-image -f Dockerfile .
+    #  addons:
+    #    apt:
+    #      sources: {}
+    #      packages: {}
 
 script: |
   echo "CC = $CC, CXX = $CXX"
@@ -105,6 +94,13 @@ addons:
     sources:
       - ubuntu-toolchain-r-test
     packages:
+      - automake
+      - autoconf
+      - make
+      - cmake
+      - clang
+      - bison
+      - flex
       - gcc-7
       - g++-7
       - libsystemd-dev
