@@ -1,4 +1,4 @@
-#dist: xenial
+dist: xenial
 language: c
 # The leak sanitizer uses ptrace, which doesn't work under the
 # travis container infrastructure, so we enable 'sudo'
