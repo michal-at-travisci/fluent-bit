@@ -1,4 +1,4 @@
-dist: xenial
+#dist: xenial
 language: c
 # The leak sanitizer uses ptrace, which doesn't work under the
 # travis container infrastructure, so we enable 'sudo'
@@ -10,7 +10,7 @@ git:
 compiler:
   - gcc
   - clang
-
+  
 arch:
   - amd64
   - arm64
@@ -39,6 +39,9 @@ env:
 before_script:
 
 matrix:
+  exclude:
+    - arch: arm64
+      dist: xenial
   include:
     #- os: osx
     #  env: FLB_OPT="-DFLB_JEMALLOC=Off"
