@@ -11,10 +11,6 @@ compiler:
   - gcc
   - clang
   
-arch:
-  - amd64
-  - arm64
-
 env:
 #  - FLB_OPT="-DFLB_JEMALLOC=On"
 #  - FLB_OPT="-DFLB_JEMALLOC=Off"
@@ -39,10 +35,19 @@ env:
 before_script:
 
 matrix:
-  exclude:
-    - arch: arm64
-      dist: xenial
   include:
+    - os: linux
+      dist: bionic
+      arch: arm64
+      env: FLB_OPT="-DFLB_COVERAGE=On"
+      sudo: true
+      language: c
+      compiler: gcc
+      script: |
+        sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 90
+        sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-7 90
+        sudo usermod -a -G systemd-journal $(id -un)
+        sudo -E su -p travis -c "PATH=$PATH ci/do-ut"
     #- os: osx
     #  env: FLB_OPT="-DFLB_JEMALLOC=Off"
     #  script: |
